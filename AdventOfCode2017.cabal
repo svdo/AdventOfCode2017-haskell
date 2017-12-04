@@ -19,7 +19,7 @@ description:         Please see the README on Github at <https://github.com/svdo
 
 library
   hs-source-dirs:      src
-  exposed-modules:     Lib
+  exposed-modules:     Day1
   build-depends:       base >= 4.7 && < 5
   default-language:    Haskell2010
 
@@ -34,7 +34,7 @@ executable AdventOfCode2017-exe
 test-suite AdventOfCode2017-test
   type:                exitcode-stdio-1.0
   hs-source-dirs:      test
-  main-is:             Spec.hs
+  main-is:             SampleSpec.hs
   build-depends:       base
                      , AdventOfCode2017
                      , hspec
