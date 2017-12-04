@@ -34,7 +34,7 @@ executable AdventOfCode2017-exe
 test-suite AdventOfCode2017-test
   type:                exitcode-stdio-1.0
   hs-source-dirs:      test
-  main-is:             SampleSpec.hs
+  main-is:             Spec.hs
   build-depends:       base
                      , AdventOfCode2017
                      , hspec
