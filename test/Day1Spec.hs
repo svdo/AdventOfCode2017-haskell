@@ -13,7 +13,8 @@ spec =
     it "converts string to list of ints" $
       parseInput "123" `shouldBe` ([1, 2, 3] :: [Int])
 
-    it "calculate captcha 1234" $
+    it "solves captcha 1234" $
       solveCaptcha "1234" `shouldBe` 0
 
-    
+    it "solves captcha 1122" $
+      solveCaptcha "1122" `shouldBe` 3
