@@ -18,3 +18,9 @@ spec =
 
     it "solves captcha 1122" $
       solveCaptcha "1122" `shouldBe` 3
+
+    it "solves captcha 1111" $
+      solveCaptcha "1111" `shouldBe` 4
+
+    it "solves captcha 91212129" $
+      solveCaptcha "91212129" `shouldBe` 9
