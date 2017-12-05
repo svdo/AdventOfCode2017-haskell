@@ -1,5 +1,6 @@
 module Day1
     ( solveCaptcha
+    , solveCaptcha2
     , captcha
     , parseInput
     , shift
@@ -26,3 +27,7 @@ solve ((digit,next):rest)
 
 shift :: Int -> [Int] -> [Int]
 shift num str =  take (length str - num) (drop num str) ++ take num str
+
+solveCaptcha2 :: String -> Int
+solveCaptcha2 s = solve (zipShifted (div (length i) 2) i)
+  where i = parseInput s

@@ -35,3 +35,21 @@ spec =
 
       it "is unchanged when shifted with length" $ property $ forAll orderedList $
         \s -> shift (length s) s == s
+
+      it "solves captcha 1212" $
+        solveCaptcha2 "1212" `shouldBe` 6
+
+      it "solves captch 1221" $
+        solveCaptcha2 "1221" `shouldBe` 0
+
+      it "solves captcha 123425" $
+        solveCaptcha2 "123425" `shouldBe` 4
+
+      it "solves captcha 123123" $
+        solveCaptcha2 "123123" `shouldBe` 12
+
+      it "solves captcha 12131415" $
+        solveCaptcha2 "12131415" `shouldBe` 4
+
+      it "gives the right answer" $
+        solveCaptcha2 captcha `shouldBe` 1508
