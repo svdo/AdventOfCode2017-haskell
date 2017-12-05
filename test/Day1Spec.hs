@@ -25,3 +25,13 @@ spec =
 
       it "solves captcha 91212129" $
         solveCaptcha "91212129" `shouldBe` 9
+
+      it "gives the right answer" $
+        solveCaptcha captcha `shouldBe` 1049
+
+    describe "part 2" $ do
+      it "can circularly shift the input" $
+        shift 3 [1,2,3,4,5,6,7,8] `shouldBe` [4,5,6,7,8,1,2,3]
+
+      it "is unchanged when shifted with length" $ property $ forAll orderedList $
+        \s -> shift (length s) s == s
