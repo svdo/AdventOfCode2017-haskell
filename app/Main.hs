@@ -2,6 +2,7 @@ module Main where
 
 import Day1
 import Day2
+import Day3
 
 main :: IO ()
 main = do
@@ -14,3 +15,5 @@ main = do
   print . checksum $ day2input
   putStrLn "  - part 2: "
   print . sumOfEvenlyDivisible $ day2input
+  putStrLn "Day 3:"
+  putStrLn ("  - part 1: " ++ show (manhattanDistance day3Input))
