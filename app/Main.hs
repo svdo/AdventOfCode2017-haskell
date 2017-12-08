@@ -3,6 +3,7 @@ module Main where
 import Day1
 import Day2
 import Day3
+import Day4
 
 main :: IO ()
 main = do
@@ -17,3 +18,5 @@ main = do
   print . sumOfEvenlyDivisible $ day2input
   putStrLn "Day 3:"
   putStrLn ("  - part 1: " ++ show (manhattanDistance day3Input))
+  putStrLn "Day 4:"
+  putStrLn ("  - part 1: " ++ show (countValid (map words day4Input)))
