@@ -9,7 +9,7 @@ main = hspec spec
 
 spec :: Spec
 spec =
-  describe "Day 4" $ do
+  describe "Day 4" $
     context "given a list of words" $ do
       it "has no duplicates" $
         duplicates ["aa", "bb", "cc"] `shouldBe` False

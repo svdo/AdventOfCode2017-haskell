@@ -44,7 +44,8 @@ moveInRing r n = (prevX + dx, prevY + dy)
         toCorner = 2*r
 
 manhattanDistance :: Int -> Int
-manhattanDistance i = (abs x) + (abs y)
-  where (x,y) = coordinateOf i
+manhattanDistance i = abs x + abs y
+  where
+    (x, y) = coordinateOf i
 
-day3Input = (265149 :: Int)
+day3Input = 265149 :: Int
