@@ -6,18 +6,18 @@ module Day5 (
 ) where
 
 stepsToExit :: [Int] -> Int
-stepsToExit xs = head $ jump 0 0 xs
+stepsToExit xs = head $ jump update 0 0 xs
 
-jump cur steps xs
-  | next < length xs && next >= 0 = jump next (steps + 1) (update cur xs)
+jump :: (Int -> [Int] -> [Int]) -> Int -> Int -> [Int] -> [Int]
+jump updateF cur steps xs
+  | next < length xs && next >= 0 = jump updateF next (steps + 1) (updateF cur xs)
   | otherwise                     = [steps + 1]
   where
     next = head (drop cur xs) + cur
 
 update :: Int -> [Int] -> [Int]
 update at xs = take at xs ++ [head rest + 1] ++ tail rest
-  where
-    rest = drop at xs
+  where rest = drop at xs
 
 day5Input :: [Int]
 day5Input = [0, 2, 0, 0, -2, -2, -1, -4, -5, -6, 0, 1, -5, -3, -10, -8,
