@@ -19,3 +19,12 @@ spec =
 
     it "can jump through the example" $
       jump 0 0 [0,3,0,1,-3] `shouldBe` [5]
+
+    it "can jump out on the left" $
+      jump 0 0 [-1] `shouldBe` [1]
+
+    it "returns the number of steps" $
+      stepsToExit [0,3,0,1,-3] `shouldBe` 5
+
+    it "can solve the puzzle" $
+      stepsToExit day5Input `shouldBe` 364539

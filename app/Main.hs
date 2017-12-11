@@ -4,6 +4,7 @@ import Day1
 import Day2
 import Day3
 import Day4
+import Day5
 
 main :: IO ()
 main = do
@@ -20,3 +21,5 @@ main = do
   putStrLn ("  - part 1: " ++ show (manhattanDistance day3Input))
   putStrLn "Day 4:"
   putStrLn ("  - part 1: " ++ show (countValid (map words day4Input)))
+  putStrLn "Day 5:"
+  putStrLn ("  - part 1: " ++ show (stepsToExit day5Input))

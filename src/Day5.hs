@@ -2,25 +2,25 @@ module Day5 (
   stepsToExit
   , jump
   , update
-  , day5input
+  , day5Input
 ) where
 
 stepsToExit :: [Int] -> Int
-stepsToExit [1] = 1
+stepsToExit xs = head $ jump 0 0 xs
 
---   cur steps list
-jump  0    0   [0,3,0,1,-3] = jump 0 1 [1,3,0,1,-3]
-jump  0    1   [1,3,0,1,-3] = jump 1 2 [2,3,0,1,-3]
-jump  1    2   [2,3,0,1,-3] = jump 4 3 [2,4,0,1,-3]
-jump  4    3   [2,4,0,1,-3] = jump 1 4 [2,4,0,1,-2]
-jump  1    4   [2,4,0,1,-2] = [5]
+jump cur steps xs
+  | next < length xs && next >= 0 = jump next (steps + 1) (update cur xs)
+  | otherwise                     = [steps + 1]
+  where
+    next = head (drop cur xs) + cur
 
 update :: Int -> [Int] -> [Int]
-update at xs = take at xs ++ [(head rest) + 1] ++ tail rest
-  where rest = drop at xs
+update at xs = take at xs ++ [head rest + 1] ++ tail rest
+  where
+    rest = drop at xs
 
-day5input :: [Int]
-day5input = [0, 2, 0, 0, -2, -2, -1, -4, -5, -6, 0, 1, -5, -3, -10, -8,
+day5Input :: [Int]
+day5Input = [0, 2, 0, 0, -2, -2, -1, -4, -5, -6, 0, 1, -5, -3, -10, -8,
              -2, -13, -14, -15, -8, -5, -13, -16, -21, -3, -14, -23, -9,
              -11, -19, -29, -2, -20, -28, 1, -3, -35, 1, -20, -4, -37,
              -11, -27, -33, -43, -20, -5, -9, -22, -47, -5, -49, -13,
