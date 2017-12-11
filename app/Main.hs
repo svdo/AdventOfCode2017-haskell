@@ -23,3 +23,4 @@ main = do
   putStrLn ("  - part 1: " ++ show (countValid (map words day4Input)))
   putStrLn "Day 5:"
   putStrLn ("  - part 1: " ++ show (stepsToExit day5Input))
+  putStrLn ("  - part 2: " ++ show (stepsToExit2 day5Input))

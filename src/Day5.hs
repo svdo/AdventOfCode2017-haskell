@@ -1,5 +1,6 @@
 module Day5 (
   stepsToExit
+  , stepsToExit2
   , jump
   , update
   , day5Input
@@ -18,6 +19,15 @@ jump updateF cur steps xs
 update :: Int -> [Int] -> [Int]
 update at xs = take at xs ++ [head rest + 1] ++ tail rest
   where rest = drop at xs
+
+stepsToExit2 xs = head $ jump update2 0 0 xs
+
+update2 :: Int -> [Int] -> [Int]
+update2 at xs = take at xs ++ [head rest + delta] ++ tail rest
+  where rest = drop at xs
+        delta
+          | head rest >= 3 = -1
+          | otherwise      = 1
 
 day5Input :: [Int]
 day5Input = [0, 2, 0, 0, -2, -2, -1, -4, -5, -6, 0, 1, -5, -3, -10, -8,
