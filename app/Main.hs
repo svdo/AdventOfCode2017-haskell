@@ -6,6 +6,7 @@ import Day3
 import Day4
 import Day5
 import Day6
+import Day7
 
 main :: IO ()
 main = do
@@ -27,3 +28,5 @@ main = do
 --  putStrLn ("  - part 2: " ++ show (stepsToExit2 day5Input))
   putStrLn "Day 6:"
   putStrLn ("  - part 1 + 2: " ++ show (stepsUnique day6Input))
+  putStrLn "Day 7:"
+  putStrLn ("  - part 1: " ++ (bottom $ (Day7.parseInput day7Input)))

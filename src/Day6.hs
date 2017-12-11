@@ -1,5 +1,5 @@
-module Day6 (
-  stepsUnique
+module Day6
+  ( stepsUnique
   , redistribute
   , update
   , distribute
