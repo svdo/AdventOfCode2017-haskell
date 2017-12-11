@@ -23,7 +23,7 @@ spec =
       distribute 4 [10,20,30] 1 `shouldBe` [11,22,31]
 
     it "knows amount of steps unique" $
-      stepsUnique [0,2,7,0] `shouldBe` 5
+      stepsUnique [0,2,7,0] `shouldBe` (5, 4)
 
     it "knows the answer to part 1" $
-      stepsUnique day6Input `shouldBe` 4074
+      stepsUnique day6Input `shouldBe` (4074, 2793)

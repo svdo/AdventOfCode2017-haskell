@@ -26,4 +26,4 @@ main = do
 --  putStrLn ("  - part 1: " ++ show (stepsToExit day5Input))
 --  putStrLn ("  - part 2: " ++ show (stepsToExit2 day5Input))
   putStrLn "Day 6:"
-  putStrLn ("  - part 1: " ++ show (stepsUnique day6Input))
+  putStrLn ("  - part 1 + 2: " ++ show (stepsUnique day6Input))

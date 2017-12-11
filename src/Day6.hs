@@ -12,9 +12,9 @@ import Data.Maybe
 
 stepsUnique xs = redistribute xs [] 0
 
-redistribute :: [Int] -> [[Int]] -> Int -> Int
+redistribute :: [Int] -> [[Int]] -> Int -> (Int, Int)
 redistribute xs seen count
-  | xs `elem` seen = count
+  | xs `elem` seen = (count, 1 + (fromJust $ elemIndex xs seen))
   | otherwise      = redistribute (update xs) (xs : seen) (count + 1)
 
 update :: [Int] -> [Int]
