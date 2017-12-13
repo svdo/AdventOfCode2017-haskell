@@ -58,3 +58,6 @@ spec =
       score "{{<ab>},{<ab>},{<ab>},{<ab>}}" `shouldBe` 9
       score "{{<!!>},{<!!>},{<!!>},{<!!>}}" `shouldBe` 9
       score "{{<a!>},{<a!>},{<a!>},{<ab>}}" `shouldBe` 3
+
+    it "solves day 9" $
+      score day9Input `shouldBe` 17537
