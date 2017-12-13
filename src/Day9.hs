@@ -13,14 +13,19 @@ module Day9
 -- AnythingExceptGtEscaped -> '!' Char | AnythingExceptGt
 -- AnythingExceptGt -> Char \\ '>'
 
-stream :: String -> (String, Bool, Int)
+type Count = Int
+type IsValid = Bool
+type ParseResult = (String, IsValid, Count)
+type ParseRule = String -> ParseResult
+
+stream :: ParseRule
 stream xs
   | not valid       = (remaining, False, count)
   | null remaining  = ([], True, count)
   | otherwise       = (remaining, False, count)
   where (remaining, valid, count) = group xs
 
-group :: String -> (String, Bool, Int)
+group :: ParseRule
 --group xs | trace ("group " ++ xs) False = undefined
 group ('{':xs)
   | null xs                 = ([], False, count)
@@ -29,7 +34,7 @@ group ('{':xs)
   where (endOfGroup, valid, count) = things xs
 group xs = (xs, False, 0)
 
-things :: String -> (String, Bool, Int)
+things :: ParseRule
 --things xs | trace ("things " ++ xs) False = undefined
 things [] = ([], True, 0)
 things xs
@@ -38,7 +43,7 @@ things xs
   where (endOfThing, valid, count) = thing xs
         (endOfMoreThings, moreValid, moreCount) = things (tail endOfThing)
 
-thing :: String -> (String, Bool, Int)
+thing :: ParseRule
 --thing xs | trace ("thing " ++ xs) False = undefined
 thing ('}':xs) = ('}':xs, True, 0)
 thing xs
@@ -46,12 +51,12 @@ thing xs
   | otherwise  = garbage xs
   where (remaining, validGroup, count) = group xs
 
-garbage :: String -> (String, Bool, Int)
+garbage :: ParseRule
 garbage ('<':xs)
   | head endOfGarbage == '>' = (tail endOfGarbage, True, count)
   where (endOfGarbage, valid, count) = anythingExceptGt xs
 
-anythingExceptGt :: String -> (String, Bool, Int)
+anythingExceptGt :: ParseRule
 anythingExceptGt ('!':x:xs) = anythingExceptGt xs
 anythingExceptGt ('>':xs) = ('>':xs, True, 0)
 anythingExceptGt (x:xs) = anythingExceptGt xs
