@@ -1,6 +1,7 @@
 module Day9
-  ( stream
-    , garbage
+  ( score
+  , stream
+  , garbage
   ) where
 
 --import Debug.Trace
@@ -18,6 +19,10 @@ type IsValid = Bool
 type NestingLevel = Int
 type ParseResult = (String, IsValid, Count, [NestingLevel])
 type ParseRule = String -> NestingLevel -> ParseResult
+
+score :: String -> Int
+score xs = sum levels
+  where (_,_,_,levels) = stream xs
 
 stream :: String -> ParseResult
 stream xs

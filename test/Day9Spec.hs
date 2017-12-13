@@ -48,3 +48,13 @@ spec =
       stream "{<a>,<a>,<a>,<a>}" `shouldBe` ([], True, 1, [1])
       stream "{{<a>},{<a>},{<a>},{<a>}}" `shouldBe` ([], True, 5, [1,2,2,2,2])
       stream "{{<!>},{<!>},{<!>},{<a>}}" `shouldBe` ([], True, 2, [1,2])
+
+    it "determines the score of the samples" $ do
+      score "{}" `shouldBe` 1
+      score "{{{}}}" `shouldBe` 6
+      score "{{},{}}" `shouldBe` 5
+      score "{{{},{},{{}}}}" `shouldBe` 16
+      score "{<a>,<a>,<a>,<a>}" `shouldBe` 1
+      score "{{<ab>},{<ab>},{<ab>},{<ab>}}" `shouldBe` 9
+      score "{{<!!>},{<!!>},{<!!>},{<!!>}}" `shouldBe` 9
+      score "{{<a!>},{<a!>},{<a!>},{<ab>}}" `shouldBe` 3
