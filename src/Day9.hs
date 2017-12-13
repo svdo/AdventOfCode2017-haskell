@@ -15,49 +15,50 @@ module Day9
 
 type Count = Int
 type IsValid = Bool
-type ParseResult = (String, IsValid, Count)
-type ParseRule = String -> ParseResult
+type NestingLevel = Int
+type ParseResult = (String, IsValid, Count, [NestingLevel])
+type ParseRule = String -> NestingLevel -> ParseResult
 
-stream :: ParseRule
+stream :: String -> ParseResult
 stream xs
-  | not valid       = (remaining, False, count)
-  | null remaining  = ([], True, count)
-  | otherwise       = (remaining, False, count)
-  where (remaining, valid, count) = group xs
+  | not valid       = (remaining, False, count, levels)
+  | null remaining  = ([], True, count, levels)
+  | otherwise       = (remaining, False, count, levels)
+  where (remaining, valid, count, levels) = group xs 1
 
 group :: ParseRule
 --group xs | trace ("group " ++ xs) False = undefined
-group ('{':xs)
-  | null xs                 = ([], False, count)
-  | head endOfGroup == '}'  = (tail endOfGroup, True, count+1)
-  | otherwise               = (endOfGroup, False, count)
-  where (endOfGroup, valid, count) = things xs
-group xs = (xs, False, 0)
+group ('{':xs) nesting
+  | null xs                 = ([], False, count, levels)
+  | head endOfGroup == '}'  = (tail endOfGroup, True, count+1, nesting:levels)
+  | otherwise               = (endOfGroup, False, count, levels)
+  where (endOfGroup, valid, count, levels) = things xs nesting
+group xs _ = (xs, False, 0, [])
 
 things :: ParseRule
 --things xs | trace ("things " ++ xs) False = undefined
-things [] = ([], True, 0)
-things xs
-  | head endOfThing == ',' = (endOfMoreThings, moreValid, count+moreCount)
-  | otherwise              = (endOfThing, valid, count)
-  where (endOfThing, valid, count) = thing xs
-        (endOfMoreThings, moreValid, moreCount) = things (tail endOfThing)
+things [] nesting = ([], True, 0, [])
+things xs nesting
+  | head endOfThing == ',' = (endOfMoreThings, moreValid, count+moreCount, levels ++  moreLevels)
+  | otherwise              = (endOfThing, valid, count, levels)
+  where (endOfThing, valid, count, levels) = thing xs nesting
+        (endOfMoreThings, moreValid, moreCount, moreLevels) = things (tail endOfThing) nesting
 
 thing :: ParseRule
 --thing xs | trace ("thing " ++ xs) False = undefined
-thing ('}':xs) = ('}':xs, True, 0)
-thing xs
-  | validGroup = (remaining, validGroup, count)
-  | otherwise  = garbage xs
-  where (remaining, validGroup, count) = group xs
+thing ('}':xs) nesting = ('}':xs, True, 0, [])
+thing xs nesting
+  | validGroup = (remaining, validGroup, count, levels)
+  | otherwise  = garbage xs nesting
+  where (remaining, validGroup, count, levels) = group xs (nesting+1)
 
 garbage :: ParseRule
-garbage ('<':xs)
-  | head endOfGarbage == '>' = (tail endOfGarbage, True, count)
-  where (endOfGarbage, valid, count) = anythingExceptGt xs
+garbage ('<':xs) nesting
+  | head endOfGarbage == '>' = (tail endOfGarbage, True, count, levels)
+  where (endOfGarbage, valid, count, levels) = anythingExceptGt xs nesting
 
 anythingExceptGt :: ParseRule
-anythingExceptGt ('!':x:xs) = anythingExceptGt xs
-anythingExceptGt ('>':xs) = ('>':xs, True, 0)
-anythingExceptGt (x:xs) = anythingExceptGt xs
+anythingExceptGt ('!':x:xs) nesting = anythingExceptGt xs nesting
+anythingExceptGt ('>':xs) nesting = ('>':xs, True, 0, [])
+anythingExceptGt (x:xs) nesting = anythingExceptGt xs nesting
 
