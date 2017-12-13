@@ -10,16 +10,16 @@ spec :: Spec
 spec =
   describe "Day 9" $ do
     it "parses an empty group" $
-      stream "{}" `shouldBe` ([], True, 1, [1])
+      stream "{}" `shouldBe` ([], True, 1, [1], [])
 
     it "doesn't parse only an open brace" $
-      stream "{" `shouldBe` ([], False, 0, [])
+      stream "{" `shouldBe` ([], False, 0, [], [])
 
     it "parses nested empty group" $
-      stream "{{}}" `shouldBe` ([], True, 2, [1,2])
+      stream "{{}}" `shouldBe` ([], True, 2, [1,2], [])
 
     it "parses empty garbage" $
-      stream "{<>}" `shouldBe` ([], True, 1, [1])
+      stream "{<>}" `shouldBe` ([], True, 1, [1], [0])
 
     it "recognizes empty garbage" $
       garbage "<>" `shouldBe` ([], True, 0)
@@ -28,7 +28,7 @@ spec =
       garbage "<a/b8*>" `shouldBe` ([], True, 5)
 
     it "parses a group of garbage" $
-      stream "{<asfasjkhfashflas>}" `shouldBe` ([], True, 1, [1])
+      stream "{<asfasjkhfashflas>}" `shouldBe` ([], True, 1, [1], [16])
 
     it "recognizes garbage with escaped gt" $
       garbage "<!>>" `shouldBe` ([], True, 0)
@@ -41,13 +41,13 @@ spec =
       garbage "<{o\"i!a,<{i<a>" `shouldBe` ([], True, 10)
 
     it "counts the number of groups in the samples" $ do
-      stream "{{{}}}" `shouldBe` ([], True, 3, [1,2,3])
-      stream "{{},{}}" `shouldBe` ([], True, 3, [1,2,2])
-      stream "{{{},{},{{}}}}" `shouldBe` ([], True, 6, [1,2,3,3,3,4])
-      stream "{<{},{},{{}}>}" `shouldBe` ([], True, 1, [1])
-      stream "{<a>,<a>,<a>,<a>}" `shouldBe` ([], True, 1, [1])
-      stream "{{<a>},{<a>},{<a>},{<a>}}" `shouldBe` ([], True, 5, [1,2,2,2,2])
-      stream "{{<!>},{<!>},{<!>},{<a>}}" `shouldBe` ([], True, 2, [1,2])
+      stream "{{{}}}" `shouldBe` ([], True, 3, [1,2,3], [])
+      stream "{{},{}}" `shouldBe` ([], True, 3, [1,2,2], [])
+      stream "{{{},{},{{}}}}" `shouldBe` ([], True, 6, [1,2,3,3,3,4], [])
+      stream "{<{},{},{{}}>}" `shouldBe` ([], True, 1, [1], [10])
+      stream "{<a>,<a>,<a>,<a>}" `shouldBe` ([], True, 1, [1], [1,1,1,1])
+      stream "{{<a>},{<a>},{<a>},{<a>}}" `shouldBe` ([], True, 5, [1,2,2,2,2], [1,1,1,1])
+      stream "{{<!>},{<!>},{<!>},{<a>}}" `shouldBe` ([], True, 2, [1,2], [13])
 
     it "determines the score of the samples" $ do
       score "{}" `shouldBe` 1
@@ -59,5 +59,8 @@ spec =
       score "{{<!!>},{<!!>},{<!!>},{<!!>}}" `shouldBe` 9
       score "{{<a!>},{<a!>},{<a!>},{<ab>}}" `shouldBe` 3
 
-    it "solves day 9" $
+    it "solves part 1" $
       score day9Input `shouldBe` 17537
+
+    it "solves part 2" $
+      nonCancelledGarbage day9Input `shouldBe` 7539

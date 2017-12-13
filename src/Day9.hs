@@ -3,6 +3,7 @@ module Day9
   , stream
   , garbage
   , day9Input
+  , nonCancelledGarbage
   ) where
 
 --import Debug.Trace
@@ -18,46 +19,50 @@ module Day9
 type Count = Int
 type IsValid = Bool
 type NestingLevel = Int
-type ParseResult = (String, IsValid, Count, [NestingLevel])
+type ParseResult = (String, IsValid, Count, [NestingLevel], [NonCancelledGarbageCharacters])
 type ParseRule = String -> NestingLevel -> ParseResult
 
 score :: String -> Int
 score xs = sum levels
-  where (_,_,_,levels) = stream xs
+  where (_,_,_,levels,_) = stream xs
+
+nonCancelledGarbage :: String -> Int
+nonCancelledGarbage xs = sum nonCancelled
+  where (_,_,_,_,nonCancelled) = stream xs
 
 stream :: String -> ParseResult
 stream xs
-  | not valid       = (remaining, False, count, levels)
-  | null remaining  = ([], True, count, levels)
-  | otherwise       = (remaining, False, count, levels)
-  where (remaining, valid, count, levels) = group xs 1
+  | not valid       = (remaining, False, count, levels, nonCancelled)
+  | null remaining  = ([], True, count, levels, nonCancelled)
+  | otherwise       = (remaining, False, count, levels, nonCancelled)
+  where (remaining, valid, count, levels, nonCancelled) = group xs 1
 
 group :: ParseRule
 --group xs | trace ("group " ++ xs) False = undefined
 group ('{':xs) nesting
-  | null xs                 = ([], False, count, levels)
-  | head endOfGroup == '}'  = (tail endOfGroup, True, count+1, nesting:levels)
-  | otherwise               = (endOfGroup, False, count, levels)
-  where (endOfGroup, valid, count, levels) = things xs nesting
-group xs _ = (xs, False, 0, [])
+  | null xs                 = ([], False, count, levels, nonCancelled)
+  | head endOfGroup == '}'  = (tail endOfGroup, True, count+1, nesting:levels, nonCancelled)
+  | otherwise               = (endOfGroup, False, count, levels, nonCancelled)
+  where (endOfGroup, valid, count, levels, nonCancelled) = things xs nesting
+group xs _ = (xs, False, 0, [], [])
 
 things :: ParseRule
 --things xs | trace ("things " ++ xs) False = undefined
-things [] nesting = ([], True, 0, [])
+things [] nesting = ([], True, 0, [], [])
 things xs nesting
-  | head endOfThing == ',' = (endOfMoreThings, moreValid, count+moreCount, levels ++  moreLevels)
-  | otherwise              = (endOfThing, valid, count, levels)
-  where (endOfThing, valid, count, levels) = thing xs nesting
-        (endOfMoreThings, moreValid, moreCount, moreLevels) = things (tail endOfThing) nesting
+  | head endOfThing == ',' = (endOfMoreThings, moreValid, count+moreCount, levels ++  moreLevels, nonCancelled ++ moreNonCancelled)
+  | otherwise              = (endOfThing, valid, count, levels, nonCancelled)
+  where (endOfThing, valid, count, levels, nonCancelled) = thing xs nesting
+        (endOfMoreThings, moreValid, moreCount, moreLevels, moreNonCancelled) = things (tail endOfThing) nesting
 
 thing :: ParseRule
 --thing xs | trace ("thing " ++ xs) False = undefined
-thing ('}':xs) nesting = ('}':xs, True, 0, [])
+thing ('}':xs) nesting = ('}':xs, True, 0, [], [])
 thing xs nesting
-  | validGroup = (remaining, validGroup, count, levels)
-  | otherwise  = (garbageRemaining, garbageResult, count, levels)
-  where (remaining, validGroup, count, levels) = group xs (nesting+1)
-        (garbageRemaining, garbageResult, _) = garbage xs
+  | validGroup = (remaining, validGroup, count, levels, nonCancelled)
+  | otherwise  = (garbageRemaining, garbageResult, count, levels, [garbageNonCancelled])
+  where (remaining, validGroup, count, levels, nonCancelled) = group xs (nesting+1)
+        (garbageRemaining, garbageResult, garbageNonCancelled) = garbage xs
 
 type NonCancelledGarbageCharacters = Int
 type GarbageParseResult = (String, IsValid, NonCancelledGarbageCharacters)
