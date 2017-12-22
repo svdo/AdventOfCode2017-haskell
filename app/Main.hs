@@ -7,6 +7,8 @@ import Day4
 import Day5
 import Day6
 import Day7
+import Day8
+import Day9
 
 main :: IO ()
 main = do
@@ -29,4 +31,10 @@ main = do
   putStrLn "Day 6:"
   putStrLn ("  - part 1 + 2: " ++ show (stepsUnique day6Input))
   putStrLn "Day 7:"
-  putStrLn ("  - part 1: " ++ (bottom $ (Day7.parseInput day7Input)))
+  putStrLn (" - part 1: " ++ bottom (Day7.parseInput day7Input))
+  putStrLn "Day 8:"
+  putStrLn ("  - part 1: " ++ show (maxRegisterValue (executeProgram day8Input)))
+  putStrLn ("  - part 2: " ++ show (snd (executeProgram day8Input)))
+  putStrLn "Day 9:"
+  putStrLn ("  - part 1: " ++ show (score day9Input))
+  putStrLn ("  - part 2: " ++ show (nonCancelledGarbage day9Input))
