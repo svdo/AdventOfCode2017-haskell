@@ -1,17 +1,33 @@
 module Day4
   (
     day4Input
-  , duplicates
+  , hasDuplicates
   , countValid
+  , countValid2
+  , hasAnagrams
+  , hasAnagram
   ) where
 
 import Data.List
 
-duplicates :: [String] -> Bool
-duplicates xs = nub xs /= xs
+hasDuplicates :: [String] -> Bool
+hasDuplicates xs = nub xs /= xs
 
 countValid :: [[String]] -> Int
-countValid = length . filter (== False) . map duplicates
+countValid = length . filter (== False) . map hasDuplicates
+
+countValid2 = length . filter (== False) . map hasDuplicatesOrAnagrams
+
+hasDuplicatesOrAnagrams :: [String] -> Bool
+hasDuplicatesOrAnagrams xs = hasDuplicates xs || hasAnagrams xs
+
+hasAnagrams :: [String] -> Bool
+hasAnagrams xs = True `elem` [check x | x <- xs]
+  where
+    check x = hasAnagram x (delete x xs)
+
+hasAnagram :: String -> [String] -> Bool
+hasAnagram s xs = s `elem` concatMap permutations xs
 
 day4Input = [
   "una bokpr ftz ryw nau yknf fguaczl anu",
