@@ -34,5 +34,6 @@ spec =
         hasAnagrams ["abcde", "xyz", "ecdab"] `shouldBe` True
         hasAnagrams ["bcde", "xyz", "cdab"] `shouldBe` False
 
-      it "solves part 2" $
+      it "solves part 2" $ do
+        pendingWith "Long running test; disabled for performance"
         countValid2 (map words day4Input) `shouldBe` 167

@@ -36,7 +36,8 @@ spec =
     it "gives the fixed weight of the example" $
       fixedWeight sample `shouldBe` 60
 
-    it "solves part 2" $
+    it "solves part 2" $ do
+      pendingWith "Long running test; disabled for performance"
       fixedWeight day7Input `shouldBe` 529
 
     it "constructs the tower of the example" $
