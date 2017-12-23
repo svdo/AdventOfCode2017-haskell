@@ -1,12 +1,14 @@
 module Day10
   ( step
-  , allSteps
+  , oneRound
   , performReverse
-  , hash
+  , hash1
   , day10Input
+  , day10Input2
   ) where
 
 import Data.List
+import Data.Char (ord)
 
 type List = [Int]
 type CurrentIndex = Int
@@ -15,13 +17,13 @@ type SkipSize = Int
 type State = (List, CurrentIndex, SkipSize, Lengths)
 type ListLength = Int
 
-hash :: ListLength -> Lengths -> Int
-hash l lengths = head list * (list !! 1)
-  where (list, index, skip, _) = allSteps ([0..(l-1)], 0, 0, lengths)
+hash1 :: ListLength -> Lengths -> Int
+hash1 l lengths = head list * (list !! 1)
+  where (list, index, skip, _) = oneRound ([0..(l-1)], 0, 0, lengths)
 
-allSteps :: State -> State
-allSteps (list, index, skip, []) = (list, index, skip, [])
-allSteps state = allSteps (step state)
+oneRound :: State -> State
+oneRound (list, index, skip, []) = (list, index, skip, [])
+oneRound state = oneRound (step state)
 
 step :: State -> State
 step (list, index, skip, lengths) = (newList, newIndex, skip+1, tail lengths)
@@ -40,3 +42,4 @@ performReverse i xs reversedPart = performReverse nextI newXs (tail reversedPart
         newXs = take i xs ++ [head reversedPart] ++ drop (i+1) xs
 
 day10Input = [230,1,2,221,97,252,168,169,57,99,0,254,181,255,235,167] :: [Int]
+day10Input2 = map ord "230,1,2,221,97,252,168,169,57,99,0,254,181,255,235,167" ++ [17, 31, 73, 47, 23]

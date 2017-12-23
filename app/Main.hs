@@ -43,4 +43,4 @@ main = do
   putStrLn ("  - part 1: " ++ show (score day9Input))
   putStrLn ("  - part 2: " ++ show (nonCancelledGarbage day9Input))
   putStrLn "Day 10:"
-  putStrLn ("  - part 1: " ++ show (hash 256 day10Input))
+  putStrLn ("  - part 1: " ++ show (hash1 256 day10Input))
