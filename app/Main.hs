@@ -34,6 +34,7 @@ main = do
   putStrLn ("  - part 1 + 2: " ++ show (stepsUnique day6Input))
   putStrLn "Day 7:"
   putStrLn (" - part 1: " ++ bottom (Day7.parseInput day7Input))
+  putStrLn (" - part 2: " ++ show (fixedWeight day7Input))
   putStrLn "Day 8:"
   putStrLn ("  - part 1: " ++ show (maxRegisterValue (executeProgram day8Input)))
   putStrLn ("  - part 2: " ++ show (snd (executeProgram day8Input)))
