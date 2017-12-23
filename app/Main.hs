@@ -23,6 +23,7 @@ main = do
   print . sumOfEvenlyDivisible $ day2input
   putStrLn "Day 3:"
   putStrLn ("  - part 1: " ++ show (manhattanDistance day3Input))
+  putStrLn ("  - part 2: " ++ show (day3part2))
   putStrLn "Day 4:"
   putStrLn ("  - part 1: " ++ show (countValid (map words day4Input)))
 --  putStrLn "Day 5:"
