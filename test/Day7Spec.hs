@@ -21,4 +21,4 @@ spec =
       bottom [("a",1,["b","c"]),("b",2,[]),("c",3,["b"])] `shouldBe` "a"
 
     it "can solve part 1" $
-      (bottom $ (parseInput day7Input)) `shouldBe` "bsfpjtc"
+      bottom (parseInput day7Input) `shouldBe` "bsfpjtc"
