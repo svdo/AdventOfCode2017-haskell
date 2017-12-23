@@ -44,3 +44,4 @@ main = do
   putStrLn ("  - part 2: " ++ show (nonCancelledGarbage day9Input))
   putStrLn "Day 10:"
   putStrLn ("  - part 1: " ++ show (hash1 256 day10Input))
+  putStrLn ("  - part 1: " ++ knotHash day10Input2)

@@ -34,3 +34,10 @@ spec =
     it "solves part 1" $
       hash1 256 day10Input `shouldBe` 2928
 
+    describe "part 2" $
+      it "solves empty string" $
+        knotHash "" `shouldBe` "a2582a3a0e66e6e86e3812dcb672a272"
+
+    it "solves part 2" $
+      knotHash day10Input2 `shouldBe` "0c2f794b2eb555f7830766bf8fb65a16"
+
