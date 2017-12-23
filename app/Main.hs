@@ -9,6 +9,7 @@ import Day6
 import Day7
 import Day8
 import Day9
+import Day10
 
 main :: IO ()
 main = do
@@ -41,3 +42,5 @@ main = do
   putStrLn "Day 9:"
   putStrLn ("  - part 1: " ++ show (score day9Input))
   putStrLn ("  - part 2: " ++ show (nonCancelledGarbage day9Input))
+  putStrLn "Day 10:"
+  putStrLn ("  - part 1: " ++ show (hash 256 day10Input))
