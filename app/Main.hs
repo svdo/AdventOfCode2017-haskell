@@ -10,6 +10,7 @@ import Day7
 import Day8
 import Day9
 import Day10
+import Day11
 
 main :: IO ()
 main = do
@@ -44,4 +45,6 @@ main = do
   putStrLn ("  - part 2: " ++ show (nonCancelledGarbage day9Input))
   putStrLn "Day 10:"
   putStrLn ("  - part 1: " ++ show (hash1 256 day10Input))
-  putStrLn ("  - part 1: " ++ knotHash day10Input2)
+  putStrLn ("  - part 2: " ++ knotHash day10Input2)
+  putStrLn "Day 11:"
+  putStrLn ("  - part 1: " ++ show (distance (parseDirections day11Input)))
