@@ -4,18 +4,18 @@ module Day11
   , followDirectionsFrom
   , parseDirections
   , distance
+  , maxDistance
   , day11Input
   ) where
 
 type Coordinate = (Int,Int)
 data Direction = N | NE | SE | S | SW | NW deriving (Enum, Show, Eq)
 
-distance :: [Direction] -> Int
-distance directions
-  | signum x == signum y = abs (x+y)
-  | otherwise            = max (abs x) (abs y)
-  where (x,y) = followDirections directions
+-- part 1
 
+distance :: [Direction] -> Int
+distance directions = hexGridDistance (x,y)
+  where (x,y) = followDirections directions
 
 followDirections :: [Direction] -> Coordinate
 followDirections = followDirectionsFrom (0,0)
@@ -29,6 +29,36 @@ followDirectionsFrom (x,y) (direction:rest)
   | direction == SW = followDirectionsFrom (x-1, y) rest
   | direction == NW = followDirectionsFrom (x-1, y+1) rest
   | direction == SE = followDirectionsFrom (x+1, y-1) rest
+
+-- part 2
+
+maxDistance :: [Direction] -> Int
+maxDistance directions = furthest
+  where (_, furthest) = followDirections2 directions
+
+followDirections2 :: [Direction] -> (Coordinate, Int)
+followDirections2 = followDirectionsFrom2 ((0,0), 0)
+
+followDirectionsFrom2 :: (Coordinate, Int) -> [Direction] -> (Coordinate, Int)
+followDirectionsFrom2 ((x,y), furthest) [] = ((x,y), furthest)
+followDirectionsFrom2 ((x,y), furthest) (direction:rest)
+  = followDirectionsFrom2 (newCoordinate, newFurthest) rest
+  where newCoordinate
+          | direction == N  = (x, y+1)
+          | direction == S  = (x, y-1)
+          | direction == NE = (x+1, y)
+          | direction == SW = (x-1, y)
+          | direction == NW = (x-1, y+1)
+          | direction == SE = (x+1, y-1)
+        newFurthest = max furthest currentDistance
+        currentDistance = hexGridDistance newCoordinate
+
+-- common
+
+hexGridDistance :: Coordinate -> Int
+hexGridDistance (x,y)
+  | signum x == signum y = abs (x+y)
+  | otherwise            = max (abs x) (abs y)
 
 parseDirections :: String -> [Direction]
 parseDirections s = map wordToDirection $ words (commaToSpace s)

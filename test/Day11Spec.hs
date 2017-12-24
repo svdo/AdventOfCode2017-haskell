@@ -42,3 +42,6 @@ spec =
 
     it "knows the distance of the input directions" $
       distance (parseDirections day11Input) `shouldBe` 698
+
+    it "knows the maximum distance from origin during traveling" $
+      maxDistance (parseDirections day11Input) `shouldBe` 1435

@@ -48,3 +48,4 @@ main = do
   putStrLn ("  - part 2: " ++ knotHash day10Input2)
   putStrLn "Day 11:"
   putStrLn ("  - part 1: " ++ show (distance (parseDirections day11Input)))
+  putStrLn ("  - part 2: " ++ show (maxDistance (parseDirections day11Input)))
