@@ -52,3 +52,4 @@ main = do
   putStrLn ("  - part 2: " ++ show (maxDistance (parseDirections day11Input)))
   putStrLn "Day 12:"
   putStrLn ("  - part 1: " ++ show (length (reachable 0 (parseNodes day12Input) [])))
+  putStrLn ("  - part 2: " ++ show (length (groups (map fst parsedDay12Input) parsedDay12Input)))

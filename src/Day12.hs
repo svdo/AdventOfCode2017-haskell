@@ -6,6 +6,7 @@ module Day12
   , day12Input
   , parsedDay12Input
   , reachable
+  , groups
   ) where
 
 import Data.List
@@ -40,6 +41,20 @@ reachable nodeId nodes seen = nub $ directlyReachable ++ indirectlyReachable
         indirectlyReachable = concat [ reachable reachableId nodes newSeen | reachableId <- directlyReachable \\ newSeen]
         newSeen = nodeId:seen
 
+groups :: [NodeId] -> [Node] -> [[NodeId]]
+groups [] _ = []
+groups _ [] = []
+groups (nodeId:nodeIds) nodes = currentGroup : rest
+  where currentGroup = reachable nodeId nodes []
+        rest = groups (nodeIds \\ currentGroup) nodesWithoutCurrentGroup
+        nodesWithoutCurrentGroup = removeNodes currentGroup nodes
+
+removeNodes :: [NodeId] -> [Node] -> [Node]
+removeNodes [] nodes = nodes
+removeNodes (i:is) nodes = delete currentNode nodes
+  where currentNode = findNode i nodes
+
+-- utitlities
 
 nodeIdOf :: Node -> NodeId
 nodeIdOf = fst

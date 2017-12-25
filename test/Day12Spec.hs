@@ -2,6 +2,7 @@ module Day12Spec (main, spec) where
 
 import Test.Hspec
 import Day12
+import Data.List
 
 main :: IO ()
 main = hspec spec
@@ -37,3 +38,6 @@ spec =
       it "solves part 1" $
         length (reachable 0 (parseNodes day12Input) []) `shouldBe` 128
 
+    describe "part 2" $
+      it "solves part 2" $
+        length (groups (map fst parsedDay12Input) parsedDay12Input) `shouldBe` 209
