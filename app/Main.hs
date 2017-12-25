@@ -11,6 +11,7 @@ import Day8
 import Day9
 import Day10
 import Day11
+import Day12
 
 main :: IO ()
 main = do
@@ -49,3 +50,5 @@ main = do
   putStrLn "Day 11:"
   putStrLn ("  - part 1: " ++ show (distance (parseDirections day11Input)))
   putStrLn ("  - part 2: " ++ show (maxDistance (parseDirections day11Input)))
+  putStrLn "Day 12:"
+  putStrLn ("  - part 1: " ++ show (length (reachable 0 (parseNodes day12Input) [])))
