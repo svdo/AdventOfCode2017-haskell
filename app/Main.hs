@@ -12,6 +12,7 @@ import Day9
 import Day10
 import Day11
 import Day12
+import Day13
 
 main :: IO ()
 main = do
@@ -53,3 +54,5 @@ main = do
   putStrLn "Day 12:"
   putStrLn ("  - part 1: " ++ show (length (reachable 0 (parseNodes day12Input) [])))
   putStrLn ("  - part 2: " ++ show (length (groups (map fst parsedDay12Input) parsedDay12Input)))
+  putStrLn "Day 13:"
+  putStrLn ("  - part 1: " ++ show (severity day13Firewall (passage day13Firewall)))
