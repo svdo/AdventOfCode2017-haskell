@@ -56,3 +56,4 @@ main = do
   putStrLn ("  - part 2: " ++ show (length (groups (map fst parsedDay12Input) parsedDay12Input)))
   putStrLn "Day 13:"
   putStrLn ("  - part 1: " ++ show (severity day13Firewall (passage day13Firewall)))
+  putStrLn ("  - part 2: " ++ show (day13b day13Input))
