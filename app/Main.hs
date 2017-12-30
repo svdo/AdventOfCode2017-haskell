@@ -33,7 +33,8 @@ main = do
   putStrLn "Day 4:"
   putStrLn ("  - part 1: " ++ show (countValid (map words day4Input)))
   putStrLn ("  - part 2: " ++ show (countValid2 (map words day4Input)))
---  putStrLn "Day 5:"
+  putStrLn "Day 5:"
+  putStrLn "   - (disabled for performance reasons)"
 --  putStrLn ("  - part 1: " ++ show (stepsToExit day5Input))
 --  putStrLn ("  - part 2: " ++ show (stepsToExit2 day5Input))
   putStrLn "Day 6:"
@@ -63,5 +64,6 @@ main = do
   putStrLn ("  - part 1: " ++ show (numOnes (hexStringToBinaryString day14Input)))
   putStrLn ("  - part 2: " ++ show (countRegions (toInts (hexStringToBinaryString day14Input))))
   putStrLn "Day 15:"
-  putStrLn ("  - part 1: " ++ show (snd (generate (day15Input, 0) 40000000)))
-  putStrLn ("  - part 2: " ++ show (snd (generate2 (day15Input, 0) 5000000)))
+  putStrLn "   - (disabled for performance reasons)"
+--  putStrLn ("  - part 1: " ++ show (snd (generate (day15Input, 0) 40000000)))
+--  putStrLn ("  - part 2: " ++ show (snd (generate2 (day15Input, 0) 5000000)))
