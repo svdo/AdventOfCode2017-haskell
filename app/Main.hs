@@ -58,5 +58,5 @@ main = do
   putStrLn "Day 13:"
   putStrLn ("  - part 1: " ++ show (severity day13Firewall (passage day13Firewall)))
   putStrLn ("  - part 2: " ++ show (day13b day13Input))
---  putStrLn "Day 14:"
---  putStrLn ("  - part 1: " ++ show (numOnes (hexStringToBinaryString day14Input)))
+  putStrLn "Day 14:"
+  putStrLn ("  - part 1: " ++ show (numOnes (hexStringToBinaryString day14Input)))
