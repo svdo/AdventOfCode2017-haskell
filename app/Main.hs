@@ -14,6 +14,7 @@ import Day11
 import Day12
 import Day13
 import Day14
+import Day15
 
 main :: IO ()
 main = do
@@ -60,3 +61,7 @@ main = do
   putStrLn ("  - part 2: " ++ show (day13b day13Input))
   putStrLn "Day 14:"
   putStrLn ("  - part 1: " ++ show (numOnes (hexStringToBinaryString day14Input)))
+  putStrLn ("  - part 2: " ++ show (countRegions (toInts (hexStringToBinaryString day14Input))))
+  putStrLn "Day 15:"
+  putStrLn ("  - part 1: " ++ show (snd (generate (day15Input, 0) 40000000)))
+  putStrLn ("  - part 2: " ++ show (snd (generate2 (day15Input, 0) 5000000)))
