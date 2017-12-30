@@ -38,6 +38,9 @@ spec =
       it "solves part 1" $
         length (reachable 0 (parseNodes day12Input) []) `shouldBe` 128
 
-    describe "part 2" $
+    describe "part 2" $ do
       it "solves part 2" $
         length (groups (map fst parsedDay12Input) parsedDay12Input) `shouldBe` 209
+
+      it "finds a single group" $
+        groups [0] [(0,[])] `shouldBe` [[0]]

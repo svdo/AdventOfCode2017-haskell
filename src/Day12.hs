@@ -7,6 +7,8 @@ module Day12
   , parsedDay12Input
   , reachable
   , groups
+  , Node
+  , NodeId
   ) where
 
 import Data.List
@@ -45,7 +47,7 @@ groups :: [NodeId] -> [Node] -> [[NodeId]]
 groups [] _ = []
 groups _ [] = []
 groups (nodeId:nodeIds) nodes = currentGroup : rest
-  where currentGroup = reachable nodeId nodes []
+  where currentGroup = nub $ nodeId:reachable nodeId nodes []
         rest = groups (nodeIds \\ currentGroup) nodesWithoutCurrentGroup
         nodesWithoutCurrentGroup = removeNodes currentGroup nodes
 
